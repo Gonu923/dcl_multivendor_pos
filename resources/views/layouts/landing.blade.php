@@ -10,39 +10,32 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon-32x32.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="{{ asset('assets/img/favicon-32x32.png')}}" rel="icon">
+  <link href="{{ asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
   <script src="https://kit.fontawesome.com/a796f0c56e.js" crossorigin="anonymous"></script>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="./assets/vendor/bootstrap/css/owl.carousel.min.css" rel="stylesheet">
-  <link href="./assets/vendor/bootstrap/css/owl.theme.default.min.css" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap/css/owl.carousel.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap/css/owl.theme.default.min.css')}}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/header.css">
+  <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('assets/css/header.css')}}">
 
   
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   @yield('css')
 
-  <style>
- 
-
-
-
-
-  </style>
 </head>
 
 <body>
@@ -63,6 +56,36 @@
             <a class="link" href=""><i class="fab fa-youtube"></i></a>
             <a class="link" href=""><i class="fab fa-skype"></i></a>
             <a class="link" href=""><i class="fab fa-whatsapp"></i></a>
+                <style>
+                    .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon {
+                        display: none !important;
+                    }
+                    body {
+                        top: 0px !important;
+                    }
+                    .goog-tooltip {
+                        display: none !important;
+                    }
+                    .goog-tooltip:hover {
+                        display: none !important;
+                    }
+                    .goog-text-highlight {
+                        background-color: transparent !important;
+                        border: none !important;
+                        box-shadow: none !important;
+                    }
+                </style>
+                <div id="google_translate_element"></div>
+                <script>
+                    function googleTranslateElementInit() {
+                        var translator = new google.translate.TranslateElement({
+                            pageLanguage: 'en',
+                            includedLanguages: 'en,bn',
+                            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                        }, 'google_translate_element');
+                    }
+                </script>
+                <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         </div>
     </div>
 </div>
@@ -164,7 +187,7 @@
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-start" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse justify-content-start" id="navbarSupportedContent" style="margin-left: -23px;">
             <ul class="navbar-nav mx-auto mb-2 mx-4 mb-lg-0 ">
                 <li class="nav-item">
                     <a class="nav-link txt_color" aria-current="page" href="{{ Url('') }}">Home</a>
@@ -173,22 +196,33 @@
                     <a class="nav-link txt_color " aria-current="page" href="{{ Url('about') }}">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link txt_color " aria-current="page" href="#">Our Service</a>
+                    <a class="nav-link txt_color " aria-current="page" href="{{ Url('services') }}">Our Service</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link txt_color " aria-current="page" href="{{ Url('message') }}">Message</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link txt_color " href="#">Partner</a>
+                    <a class="nav-link txt_color " href="{{ Url('partner') }}">Partner</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link txt_color dropdown-toggle " href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Join Us
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Retailer Registration</a></li>
+                        <li><a class="dropdown-item" href="#">Wholesaler Registration</a></li>
+                        <li><a class="dropdown-item" href="#">Direct Retailer Service Form</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link txt_color " href="#">Enterprises</a>
+                    <a class="nav-link txt_color " href="{{ Url('enterprise') }}">Enterprises</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link txt_color " href="#">Media</a>
+                    <a class="nav-link txt_color " href="{{ Url('media') }}">Media</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link txt_color  btn-contact" href="#">Contact Us</a>
+                    <a class="nav-link txt_color  btn-contact" href="{{ Url('contact') }}">Contact Us</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link txt_color dropdown-toggle " href="#" id="navbarDropdown" role="button"
@@ -304,18 +338,15 @@
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script src="assets/vendor/bootstrap/js/jquery-3.6.0.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/owl.carousel.min.js"></script>
+  <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
+  <script src="{{ asset('assets/vendor/bootstrap/js/jquery-3.6.0.min.js')}}"></script>
+  <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+  <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+  <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
+  <script src="{{ asset('assets/vendor/bootstrap/js/owl.carousel.min.js')}}"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>

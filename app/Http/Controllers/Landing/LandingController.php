@@ -16,7 +16,7 @@ class LandingController extends Controller
     }
 
     public function services(){
-        return view('landing.contact');
+        return view('landing.services');
     }
 
     public function message(){

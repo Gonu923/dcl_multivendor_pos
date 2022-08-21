@@ -39,6 +39,15 @@ Route::group(['as' => 'api'], function() {
 
     //task api
     Orion::resource('tasks', Api\TaskController::class);
+
+    //Category based discount api
+    Orion::resource('category-discounts', Api\CategoryDiscountController::class);
+
+    //Sub Category based discount api
+    Orion::resource('subcategory-discounts', Api\SubcategoryDiscountController::class);
+
+    //Sub Category based discount api
+    Orion::resource('subcategory-discounts', Api\SubcategoryDiscountController::class);
 });
 
 

@@ -166,45 +166,49 @@
             <div class="col-md-12">
                 <div class="card-footer">
                     <div class="row">
-                    <div class="col-sm-3 col-6">
-                    <div class="description-block border-right">
-                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 
-                        {{ number_format((($dcl_discount + $vendor_discount) / $products_count), 0) }}%
-                    </span>
-                    <h5 class="description-header">BDT {{ number_format((($total_sale +  ( $total_sale * ((($dcl_discount + $vendor_discount) / $products_count)/100))) - $total_sale),2) }}</h5>
-                    <span class="description-text">Total Discount</span>
-                    </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="description-block border-right">
+                                <span class="description-percentage text-success"><i class="fas fa-caret-up"></i>
+                                    {{ number_format(($dcl_discount + $vendor_discount) / $products_count, 0) }}%
+                                </span>
+                                <h5 class="description-header">BDT
+                                    {{ number_format($total_sale + $total_sale * (($dcl_discount + $vendor_discount) / $products_count / 100) - $total_sale, 2) }}
+                                </h5>
+                                <span class="description-text">Total Discount</span>
+                            </div>
 
-                    </div>
+                        </div>
 
-                    <div class="col-sm-3 col-6">
-                    <div class="description-block border-right">
-                    <span class="description-percentage text-success"><i class="fas fa-caret-left"></i> 
-                        {{ number_format(($commissions / $vendors_count),  0) }}% <span>- 4% = {{ number_format(($commissions / $vendors_count) - 4,  0) }}%</span>
-                    </span>
-                    <h5 class="description-header">BDT {{ number_format($all_commissions, 2) }}</h5>
-                    <span class="description-text">Total Commission</span>
-                    </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="description-block border-right">
+                                <span class="description-percentage text-success"><i class="fas fa-caret-left"></i>
+                                    {{ number_format($commissions / $vendors_count, 0) }}% <span>- 4% =
+                                        {{ number_format($commissions / $vendors_count - 4, 0) }}%</span>
+                                </span>
+                                <h5 class="description-header">BDT {{ number_format($all_commissions, 2) }}</h5>
+                                <span class="description-text">Total Commission</span>
+                            </div>
 
-                    </div>
+                        </div>
 
-                    <div class="col-sm-3 col-6">
-                    <div class="description-block border-right">
-                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
-                    <h5 class="description-header">BDT {{ number_format($total_commissions, 2) }}</h5>
-                    <span class="description-text">Total Collection</span>
-                    </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="description-block border-right">
+                                <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
+                                <h5 class="description-header">BDT {{ number_format($total_commissions, 2) }}</h5>
+                                <span class="description-text">Total Collection</span>
+                            </div>
 
-                    </div>
+                        </div>
 
-                    <div class="col-sm-3 col-6">
-                    <div class="description-block">
-                    <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
-                    <h5 class="description-header">BDT {{ number_format($due_collections, 2) }}</h5>
-                    <span class="description-text">Due Collection</span>
-                    </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="description-block">
+                                <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i>
+                                    18%</span>
+                                <h5 class="description-header">BDT {{ number_format($due_collections, 2) }}</h5>
+                                <span class="description-text">Due Collection</span>
+                            </div>
 
-                    </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -226,41 +230,7 @@
                     <!-- /.card-body -->
                 </div>
             </div>
-            <!-- <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Commission and Target</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul class="nav nav-pills flex-column">
-                            <li class="nav-item">
-                            <a href="#" class="nav-link">
-                            Average Discount
-                            <span class="float-right text-success">
-                            <i class="fas fa-arrow-down text-sm"></i>
-                            12%</span>
-                            </a>
-                            </li>
-                            <li class="nav-item">
-                            <a href="#" class="nav-link">
-                            Average Commission
-                            <span class="float-right text-success">
-                            <i class="fas fa-arrow-up text-sm"></i> 4%
-                            </span>
-                            </a>
-                            </li>
-                            <li class="nav-item">
-                            <a href="#" class="nav-link">
-                            China
-                            <span class="float-right text-warning">
-                            <i class="fas fa-arrow-left text-sm"></i> 0%
-                            </span>
-                            </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div> -->
+
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
@@ -291,7 +261,8 @@
                                 </div>
                                 <div class="product-info">
                                     <a href="javascript:void(0)" class="product-title">Total Discount Amount
-                                        <span class="badge badge-success float-right">BDT {{ number_format((($total_sale +  ( $total_sale * ((($dcl_discount + $vendor_discount) / $products_count)/100))) - $total_sale),2) }}</span></a>
+                                        <span class="badge badge-success float-right">BDT
+                                            {{ number_format($total_sale + $total_sale * (($dcl_discount + $vendor_discount) / $products_count / 100) - $total_sale, 2) }}</span></a>
                                     <span class="product-description">
                                         {{ Date('d/m/y') }}
                                     </span>
@@ -320,7 +291,8 @@
                                 </div>
                                 <div class="product-info">
                                     <a href="javascript:void(0)" class="product-title">Total Dues
-                                        <span class="badge badge-success float-right">BDT {{ number_format($due_collections, 2) }}</span></a>
+                                        <span class="badge badge-success float-right">BDT
+                                            {{ number_format($due_collections, 2) }}</span></a>
                                     <span class="product-description">
                                         {{ Date('d/m/y') }}
                                     </span>

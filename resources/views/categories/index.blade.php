@@ -13,29 +13,30 @@
         <div class="card-body">
             <table class="table">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Category Name</th>
-                    <th>Category Image</th>
-                    <th>Actions</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category Name</th>
+                        <th>Category Image</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($categories as $category)
-                    <tr>
-                        <td>{{$category->id}}</td>
-                        <td>{{$category->category_name}}</td>
-                        <td>
-                            <img width="50" src="{{$category->getCategoryImage()}}" alt="">
-                        </td>
-                        <td>
-                            <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary"><i
-                                    class="fas fa-edit"></i></a>
-                            <button class="btn btn-danger btn-delete" data-url="{{route('categories.destroy', $category)}}"><i
-                                    class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                @endforeach
+                    @foreach ($categories as $category)
+                        <tr>
+                            <td>{{ $category->id }}</td>
+                            <td>{{ $category->category_name }}</td>
+                            <td>
+                                <img width="50" src="{{ $category->getCategoryImage() }}" alt="">
+                            </td>
+                            <td>
+                                <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary"><i
+                                        class="fas fa-edit"></i></a>
+                                <button class="btn btn-danger btn-delete"
+                                    data-url="{{ route('categories.destroy', $category) }}"><i
+                                        class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
             {{ $categories->render() }}

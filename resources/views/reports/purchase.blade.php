@@ -79,109 +79,109 @@
     </div>
     <div class="card">
         <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Customer Name</th>
-                        <th>Phone</th>
-                        <th>Total Purchased</th>
-                        <th>Total Due</th>
-                        <th>Total Points/Cashback Amount</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($customers as $customer)
-
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Total Purchased</th>
+                    <th>Total Due</th>
+                    <th>Total Points/Cashback Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($customers as $customer)
                     <?php $total_p = 0; ?>
-                    
+
                     <tr>
                         <td>{{ $customer->id }}</td>
-                        <td>{{ $customer->first_name. " ". $customer->last_name }}</td>
+                        <td>{{ $customer->first_name . ' ' . $customer->last_name }}</td>
                         <td>{{ $customer->phone }}</td>
                         <td>
 
-                            @foreach($orders as $order)
-                            @if($customer->id == $order->customer_id)
-                                @if(count($order_item)>0)
-                                    
-                                @foreach($order_item as $item)
-                                @if($item->order_id == $order->id)
-                                    <?php $total_p = $total_p + $item->price; ?>
+                            @foreach ($orders as $order)
+                                @if ($customer->id == $order->customer_id)
+                                    @if (count($order_item) > 0)
+                                        @foreach ($order_item as $item)
+                                            @if ($item->order_id == $order->id)
+                                                <?php $total_p = $total_p + $item->price; ?>
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 @endif
-                                @endforeach
-                                  
-                                @endif
-
-                            @endif
                             @endforeach
 
-                             BDT {{ number_format($total_p,2) }} 
+                            BDT {{ number_format($total_p, 2) }}
                         </td>
                         <td></td>
                         <td>
-                            @if(number_format(($total_p * 0.01),0) >= 100)
-                            BDT {{ number_format(($total_p * 0.01),0)/10 }} 
+                            @if (number_format($total_p * 0.01, 0) >= 100)
+                                BDT {{ number_format($total_p * 0.01, 0) / 10 }}
                             @else
-                            {{ number_format(($total_p * 0.01),0) }} Points
+                                {{ number_format($total_p * 0.01, 0) }} Points
                             @endif
 
                         </td>
-                        
+
                         <td>
-                            @if(number_format($total_p * 0.01, 0) < 100)
+                            @if (number_format($total_p * 0.01, 0) < 100)
                                 <span>Need more coins</span>
                             @else
-
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ $customer->id}}" title="Give Cashback">
-                                <span class="fas fa-gift"></span>
-                            </button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal{{ $customer->id }}" title="Give Cashback">
+                                    <span class="fas fa-gift"></span>
+                                </button>
                             @endif
 
-                            <div class="modal fade" id="exampleModal{{ $customer->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Send Cashback</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                        <form method="POST" action="">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="col-md-6">
+                            <div class="modal fade" id="exampleModal{{ $customer->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Send Cashback</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-md-6">
 
-                                                    <div class="form-group">
-                                                        <label>Total Purchase</label>
-                                                        <input type="text" name="total_purchase" value="{{ $total_p }}" class="form-control" readonly>
+                                                        <div class="form-group">
+                                                            <label>Total Purchase</label>
+                                                            <input type="text" name="total_purchase"
+                                                                value="{{ $total_p }}" class="form-control" readonly>
+                                                        </div>
+
+                                                        <input type="number" name="customer_id"
+                                                            value="{{ $customer->id }}" hidden>
+
                                                     </div>
+                                                    <div class="col-md-6">
 
-                                                    <input type="number" name="customer_id" value="{{ $customer->id }}" hidden>
+                                                        <div class="form-group">
+                                                            <label>Cashback Amount</label>
+                                                            <input type="number" name="cashback_amount"
+                                                                value="{{ number_format($total_p * 0.01, 0) / 10 }}"
+                                                                class="form-control" readonly>
+                                                        </div>
 
-                                                </div>
-                                                <div class="col-md-6">
-
-                                                    <div class="form-group">
-                                                        <label>Cashback Amount</label>
-                                                        <input type="number" name="cashback_amount" value="{{ number_format(($total_p * 0.01),0)/10 }}" class="form-control" readonly>
                                                     </div>
-                                                    
                                                 </div>
-                                            </div>
-                                            <input type="submit" value="Send Reword" class="btn btn-success">
-                                        </form>
-                                  </div>
+                                                <input type="submit" value="Send Reword" class="btn btn-success">
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
                         </td>
                     </tr>
-                 
-                    @endforeach
-                </tbody>
-            </table>
+                @endforeach
+            </tbody>
+        </table>
 
     </div>
     </div>

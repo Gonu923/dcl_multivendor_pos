@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CatDiscount;
+use App\Models\Category;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class CatDiscountController extends Controller
@@ -14,8 +16,10 @@ class CatDiscountController extends Controller
      */
     public function index()
     {
-        $catDiscounts = CatDiscount::all();
-        return view('discounts.catdiscount', compact('catDiscounts'));
+        $catDiscounts = CatDiscount::latest()->paginate(10);
+        $vendors = Vendor::all();
+        $categories = Category::all();
+        return view('discounts.catdiscount', compact('catDiscounts', 'vendors', 'categories'));
     }
 
     /**
@@ -36,7 +40,27 @@ class CatDiscountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'vendor_id' => 'required|unique:cat_discounts,vendor_id',
+            'category_id' => 'required',
+            'dcl_discount' => 'required',
+            'vendor_discount' => 'required',
+        ],
+        [
+            'vendor_id.unique' => 'You have to set unique value!',
+        ]);
+
+        $catDiscount = CatDiscount::create([
+            'category_id' => $request->category_id,
+            'vendor_id' => $request->vendor_id,
+            'dcl_discount' => $request->dcl_discount,
+            'vendor_discount' => $request->vendor_discount,
+        ]);
+
+        if (!$catDiscount) {
+            return redirect()->back()->with('error', 'Sorry, there\'re a problem while creating category based discount.');
+        }
+        return redirect()->route('catdiscounts.index')->with('success', 'Success, your category based discount have been created.');
     }
 
     /**
@@ -81,6 +105,10 @@ class CatDiscountController extends Controller
      */
     public function destroy(CatDiscount $catDiscount)
     {
-        //
+        $catDiscount->delete();
+
+        return response()->json([
+           'success' => true
+        ]);
     }
 }

@@ -6,7 +6,7 @@
 
 @section('main')
  <!-- slider section  -->
-  
+
   <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -20,6 +20,8 @@
       </div>
     </div>
   </div>
+
+
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
@@ -43,6 +45,9 @@
   </section><!-- End Hero -->
 
   <main id="main">
+
+   <div id="example">
+   </div>
 
     <!-- ======= App Features Section ======= -->
     <section id="features" class="features">
@@ -81,7 +86,7 @@
                   <h4>Ride Share</h4>
                   <p>Save time and reach your destination on time at an affordable price</p>
                 </div>
-                
+
               </div>
               <div class="row">
                 <div class="col-md-5 f-box icon-box" data-aos="fade-up" data-aos-delay="400">
@@ -224,8 +229,8 @@
    </section>
    <!-- ======= End content Section ========= -->
 
- 
-  
+
+
     <!-- ======= Frequently Asked Questions Section ======= -->
     <section id="faq" class="faq section-bg">
       <div class="container" data-aos="fade-up">

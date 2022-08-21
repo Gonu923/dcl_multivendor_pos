@@ -3,7 +3,7 @@
 @section('title', 'Admin List')
 @section('content-header', 'Admin List')
 @section('content-actions')
-    <a href="{{ route('all-admins.create') }}" class="btn btn-primary">Add New Admin</a>    
+    <a href="{{ route('all-admins.create') }}" class="btn btn-primary">Add New Admin</a>
 @endsection
 
 @section('content')
@@ -24,14 +24,14 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
-                            <td>{{ $user->first_name. " ".$user->last_name }}</td>
+                            <td>{{ $user->first_name . ' ' . $user->last_name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role }}</td>
                             <td>{{ $user->created_at }}</td>
                             <td>
-                            	<a href="{{ route('all-admins.edit', $user) }}" class="btn btn-primary">Edit</a>
-                            	<button class="btn btn-danger btn-delete" data-url="{{ route('all-admins.destroy', $user)}}"><i
-                                    class="fas fa-trash"></i></button>
+                                <a href="{{ route('all-admins.edit', $user) }}" class="btn btn-primary">Edit</a>
+                                <button class="btn btn-danger btn-delete"
+                                    data-url="{{ route('all-admins.destroy', $user) }}"><i class="fas fa-trash"></i></button>
 
                             </td>
                         </tr>

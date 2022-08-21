@@ -13,20 +13,20 @@
         <div class="card-body">
             <table class="table">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Avatar</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Avatar</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {{-- @foreach ($customers as $customer)
+                    {{-- @foreach ($customers as $customer)
                     <tr>
                         <td>{{$customer->id}}</td>
                         <td>

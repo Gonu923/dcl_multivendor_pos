@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubcatDiscount;
+use App\Models\Vendor;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
 class SubcatDiscountController extends Controller
@@ -14,8 +16,10 @@ class SubcatDiscountController extends Controller
      */
     public function index()
     {
-        $subcatDiscounts = SubcatDiscount::all();
-        return view('discounts.subcatdiscount', compact('subcatDiscounts'));
+        $vendors = Vendor::all();
+        $subcatDiscounts = SubcatDiscount::latest()->paginate(10);
+        $subcats = Subcategory::all();
+        return view('discounts.subcatdiscount', compact('subcatDiscounts', 'vendors', 'subcats'));
     }
 
     /**
@@ -36,7 +40,17 @@ class SubcatDiscountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $subcatDiscount = SubcatDiscount::create([
+            'subcategory_id' => $request->subcategory_id,
+            'vendor_id' => $request->vendor_id,
+            'dcl_discount' => $request->dcl_discount,
+            'vendor_discount' => $request->vendor_discount,
+        ]);
+
+        if (!$subcatDiscount) {
+            return redirect()->back()->with('error', 'Sorry, there\'re a problem while creating sub category based discount.');
+        }
+        return redirect()->route('subcatdiscounts.index')->with('success', 'Success, your sub category based discount have been created.');
     }
 
     /**

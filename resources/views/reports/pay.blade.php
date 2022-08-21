@@ -14,10 +14,13 @@
 
                 <div class="form-group">
                     <label for="salary_status">salary_Status</label>
-                    <select name="salary_status" class="form-control @error('salary_status') is-invalid @enderror" id="salary_status">
-                        <option value="1" {{ old('salary_status', $product->salary_status) === 1 ? 'selected' : '' }}>Active
+                    <select name="salary_status" class="form-control @error('salary_status') is-invalid @enderror"
+                        id="salary_status">
+                        <option value="1" {{ old('salary_status', $product->salary_status) === 1 ? 'selected' : '' }}>
+                            Active
                         </option>
-                        <option value="0" {{ old('salary_status', $product->salary_status) === 0 ? 'selected' : '' }}>Inactive
+                        <option value="0" {{ old('salary_status', $product->salary_status) === 0 ? 'selected' : '' }}>
+                            Inactive
                         </option>
                     </select>
                     @error('salary_status')
@@ -36,7 +39,7 @@
 @section('js')
     <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             bsCustomFileInput.init();
         });
     </script>

@@ -5,64 +5,68 @@
 @section('content-actions')
     <a href="{{ route('cart.index') }}" class="btn btn-primary">Open POS</a>
     <button onclick="window.print()"><span class="fas fa-print"></span></button>
-    
+
 @endsection
 
 @section('content')
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Category Based Discount</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <form action="{{ route('catdiscounts.store') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlSelect1">Select Vendor</label>
-                                                        <select class="form-control" id="exampleFormControlSelect1" name="vendor_id">  
-                                                            <option>Choose Vendor</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Dhaka Choice Ltd. Discount</label>
-                                                        <input type="text" name="dcl_discount" class="form-control" placeholder="DCL discount percentage">
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlSelect1">Select Category</label>
-                                                        <select class="form-control" name="category_id">  
-                                                            <option>Choose Category</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Vendor Discount</label>
-                                                        <input type="text" name="vendor_discount" class="form-control" placeholder="Vendor discount percentage">
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            <input type="submit" name="assign" value="Save Discount" class="btn btn-primary">
-                                            <button type="button" class="btn btn-danger float-right" data-dismiss="modal" aria-label="Close">
-                                              Close
-                                            </button>
-                                        </div>
-                                        </form>
-                                      </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Category Based Discount</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('catdiscounts.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Select Vendor</label>
+                                        <select class="form-control" id="exampleFormControlSelect1" name="vendor_id">
+                                            <option>Choose Vendor</option>
+                                        </select>
                                     </div>
-                                  </div>
+
+                                    <div class="form-group">
+                                        <label>Dhaka Choice Ltd. Discount</label>
+                                        <input type="text" name="dcl_discount" class="form-control"
+                                            placeholder="DCL discount percentage">
+                                    </div>
+
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Select Category</label>
+                                        <select class="form-control" name="category_id">
+                                            <option>Choose Category</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Vendor Discount</label>
+                                        <input type="text" name="vendor_discount" class="form-control"
+                                            placeholder="Vendor discount percentage">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <input type="submit" name="assign" value="Save Discount" class="btn btn-primary">
+                            <button type="button" class="btn btn-danger float-right" data-dismiss="modal"
+                                aria-label="Close">
+                                Close
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php $total_sale = 0; ?>
     <div class="container-fluid">
         <div class="row">
@@ -134,39 +138,43 @@
     </div>
     <div class="card">
         <table class="table">
-                <thead>
-                    <tr>
-                        <th>Vendor Name</th>
-                        <th>Contact No</th>
-                        <th>Address</th>
-                        <th>Total Sale</th>
-                        <th>Commission Due</th>
-                        <th>Assigned Employee Name/ID</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($vendors as $vendor)
-                    <?php 
-                    $total_s = 0; $total_c = 0; 
-                    $flag_id = 0; $msg = ""; $e_uid = 0; $e_name = ""; $ra = 0; 
+            <thead>
+                <tr>
+                    <th>Vendor Name</th>
+                    <th>Contact No</th>
+                    <th>Address</th>
+                    <th>Total Sale</th>
+                    <th>Commission Due</th>
+                    <th>Assigned Employee Name/ID</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($vendors as $vendor)
+                    <?php
+                    $total_s = 0;
+                    $total_c = 0;
+                    $flag_id = 0;
+                    $msg = '';
+                    $e_uid = 0;
+                    $e_name = '';
+                    $ra = 0;
                     ?>
                     <tr>
                         <td>{{ $vendor->name }}</td>
                         <td>{{ $vendor->contact_no }}</td>
                         <td>{{ $vendor->address }}</td>
                         <td>
-                            @foreach($products as $product)
-                                @if($vendor->id == $product->vendor_id)
-                                    @foreach($order_item as $item)
-                                        @if($item->product_id == $product->id)
-                                            <?php 
-                                                $total_s = $total_s + $item->price; 
+                            @foreach ($products as $product)
+                                @if ($vendor->id == $product->vendor_id)
+                                    @foreach ($order_item as $item)
+                                        @if ($item->product_id == $product->id)
+                                            <?php
+                                            $total_s = $total_s + $item->price;
                                             ?>
-                                        
                                         @endif
-                                        @foreach($tasks as $task)
-                                            @if($task->vendor_id == $vendor->id)
+                                        @foreach ($tasks as $task)
+                                            @if ($task->vendor_id == $vendor->id)
                                                 <?php $sa = $task->total_sale; ?>
                                             @endif
                                         @endforeach
@@ -174,21 +182,21 @@
                                 @endif
                             @endforeach
 
-                            BDT {{ $total_s }} 
+                            BDT {{ $total_s }}
                         </td>
-                       
+
                         <td>
-                            @foreach($products as $product)
-                                @if($vendor->id == $product->vendor_id)
-                                    @foreach($order_item as $item)
-                                        @if($item->product_id == $product->id)
-                                            {{$product->commission}}
-                                            <?php 
-                                                $total_c = $total_s * 0.02;
+                            @foreach ($products as $product)
+                                @if ($vendor->id == $product->vendor_id)
+                                    @foreach ($order_item as $item)
+                                        @if ($item->product_id == $product->id)
+                                            {{ $product->commission }}
+                                            <?php
+                                            $total_c = $total_s * 0.02;
                                             ?>
                                         @endif
-                                        @foreach($tasks as $task)
-                                            @if($task->vendor_id == $vendor->id)
+                                        @foreach ($tasks as $task)
+                                            @if ($task->vendor_id == $vendor->id)
                                                 <?php $ra = $task->received_amount; ?>
                                             @endif
                                         @endforeach
@@ -196,107 +204,127 @@
                                     @endforeach
                                 @endif
                             @endforeach
-                            BDT {{ number_format(($total_c), 2) }}                            
+                            BDT {{ number_format($total_c, 2) }}
                         </td>
                         <td>
-                            @foreach($tasks as $task)
-                                @if($task->vendor_id == $vendor->id && $task->received_amount == 0)
+                            @foreach ($tasks as $task)
+                                @if ($task->vendor_id == $vendor->id && $task->received_amount == 0)
                                     <?php $flag_id = $task->assigned_employee_id; ?>
-                                    @foreach($employees as $employee)
-                                        @if($employee->id == $flag_id)
-                                            <?php $e_name = $employee->employee_name; $e_uid = $employee->employee_uid;  ?>
+                                    @foreach ($employees as $employee)
+                                        @if ($employee->id == $flag_id)
+                                            <?php $e_name = $employee->employee_name;
+                                            $e_uid = $employee->employee_uid; ?>
                                         @endif
                                     @endforeach
-                                @endif 
+                                @endif
                             @endforeach
-                            @if($flag_id >0)
-                                Assigned to {{ $e_name }} / {{ $e_uid }} 
+                            @if ($flag_id > 0)
+                                Assigned to {{ $e_name }} / {{ $e_uid }}
                             @else
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ $vendor->id}}">
-                                    Assign 
-                            </button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal{{ $vendor->id }}">
+                                    Assign
+                                </button>
                             @endif
 
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal{{ $vendor->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Assign employee</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <form action="{{ route('commissions.taskstore') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlSelect1">Vendor Name</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1" name="vendor_id">  
-                                                        <option value="{{$vendor->id}}">{{ $vendor->name }}</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlInput1">Employee Name</label>
-                                                    <select class="form-control" name="assigned_employee_id">
-                                                        @foreach($employees as $employee)
-                                                            <option value="{{$employee->id}}">{{$employee->employee_name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    
-            
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlInput1">Payable Amount</label>
-                                                    <input type="text" class="form-control" name="total_amount" id="exampleFormControlInput1" readonly value="{{ number_format($total_c - $ra,2,'.','') }}">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlInput1">Task Date</label>
-                                                    <input type="text" name="collection_date" class="form-control" id="exampleFormControlInput1" placeholder="y/m/d" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlInput1">Total Sale</label>
-                                                    <input type="text" class="form-control" name="total_sale" id="exampleFormControlInput1" readonly value="{{ number_format($total_s,2,'.','') }}">
-                                                </div>
-
-                                            </div>
+                            <div class="modal fade" id="exampleModal{{ $vendor->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Assign employee</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('commissions.taskstore') }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="exampleFormControlSelect1">Vendor Name</label>
+                                                                <select class="form-control"
+                                                                    id="exampleFormControlSelect1" name="vendor_id">
+                                                                    <option value="{{ $vendor->id }}">
+                                                                        {{ $vendor->name }}</option>
+                                                                </select>
+                                                            </div>
 
-                                        <input type="submit" name="assign" value="Assign" class="btn btn-primary">
-                                        <button type="button" class="btn btn-danger float-right" data-dismiss="modal" aria-label="Close">
-                                          Close
-                                        </button>
+                                                            <div class="form-group">
+                                                                <label for="exampleFormControlInput1">Employee Name</label>
+                                                                <select class="form-control" name="assigned_employee_id">
+                                                                    @foreach ($employees as $employee)
+                                                                        <option value="{{ $employee->id }}">
+                                                                            {{ $employee->employee_name }}</option>
+                                                                    @endforeach
+                                                                </select>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="exampleFormControlInput1">Payable
+                                                                    Amount</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="total_amount" id="exampleFormControlInput1"
+                                                                    readonly
+                                                                    value="{{ number_format($total_c - $ra, 2, '.', '') }}">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleFormControlInput1">Task Date</label>
+                                                                <input type="text" name="collection_date"
+                                                                    class="form-control" id="exampleFormControlInput1"
+                                                                    placeholder="y/m/d" required>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleFormControlInput1">Total Sale</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="total_sale" id="exampleFormControlInput1"
+                                                                    readonly
+                                                                    value="{{ number_format($total_s, 2, '.', '') }}">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="submit" name="assign" value="Assign"
+                                                        class="btn btn-primary">
+                                                    <button type="button" class="btn btn-danger float-right"
+                                                        data-dismiss="modal" aria-label="Close">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                    </form>
-                                  </div>
                                 </div>
-                              </div>
                             </div>
                         </td>
-                        <td><a href="" class="btn btn-info snd-inv" title="Send Invoice"><span class="fas fa-hand-holding-usd"></span></a></td>
+                        <td><a href="" class="btn btn-info snd-inv" title="Send Invoice"><span
+                                    class="fas fa-hand-holding-usd"></span></a></td>
                     </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>BDT {{ number_format($total, 2) }}</th>
-                        <th>BDT {{ number_format($total * 0.02, 2) }}</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>
-            </table>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>BDT {{ number_format($total, 2) }}</th>
+                    <th>BDT {{ number_format($total * 0.02, 2) }}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
 
     </div>
     </div>

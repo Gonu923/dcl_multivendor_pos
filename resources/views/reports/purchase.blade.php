@@ -171,7 +171,9 @@
 
                                                     </div>
                                                 </div>
-                                                <input type="submit" value="Send Reword" class="btn btn-success">
+                                                
+                                                <a href="https://merchantdemo.sandbox.bka.sh/frontend/checkout/version/1.2.0-beta">Pay Rewords</a>
+            
                                             </form>
                                         </div>
                                     </div>
@@ -183,6 +185,76 @@
             </tbody>
         </table>
 
+        {{ $customers->render() }}
+
     </div>
     </div>
+@endsection
+
+
+@section('js')
+<script type="text/javascript">
+    // THE SCRIPT PART
+
+            $.getScript(scriptLink)
+            .done(function(script){
+                //finished loading the script
+
+            //call the bkash init function
+            bKash.init({
+
+
+                //options -
+                //1) 'checkout' : Performs a single checkout.
+                paymentMode: 'checkout',
+
+                //paymentRequest format : { amount: _AMOUNT, intent: _INTENT };
+                //intent : sale - immediate trx
+                //intent : authorization - needs an additional 'Capture' call for trx
+                //max two decimal points allowed in amount value.
+                //paymentRequest will be ignored for paymentMode 'addWalletOnly'. Just keep it as blank object (paymentRequest:{})
+                paymentRequest: { amount: '100.50', intent: 'sale' },
+
+                createRequest: function (request) {
+
+
+                    //CALL YOUR BACKEND'S CREATE METHOD HERE
+                    //IF THE CALL IS SUCCESSFUL, SEND THE CREATE RESPONSE DATA IN bKash.create().onSuccess() METHOD
+                        bKash.create().onSuccess(createResponseData);
+                    //ELSE, CALL bKash.create().onError() METHOD. bKash will run it's clean up code from there
+                        bKash.create().onError();
+
+                },
+                executeRequestOnAuthorization: function () {
+
+
+                    //CALL YOUR BACKEND'S EXECUTE METHOD HERE
+                    //IF THE CALL IS SUCCESSFUL, DISPLAY YOUR SUCCESS PAGE
+                        window.location.href = "your_success_page.html";
+                    //ELSE, CALL bKash.execute().onError() METHOD. bKash will run it's clean up code from there
+                        bKash.execute().onError();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+
+                },
+                onClose : function () {
+                    //define what happens if the user closes the pop up window
+
+                    //your code goes here
+                }
+            });
+
+
+            //OPTIONAL function
+            //AFTER CALLING bKash.init, you can call bKash.reconfigure method according to your needs
+
+            //    bKash.reconfigure({
+            //      paymentMode: 'newPaymentMode',
+            //        paymentRequest: 'newPaymentRequest'
+            //    });
+
+            // NOTE : VIEW PAGE SOURCE TO SEE REAL LIFE IMPLEMENTATION
+            });
+
+ //Enable the button / display the button after bKash init function
+                $('#bKash_button').removeAttr('disabled');
+</script>
 @endsection

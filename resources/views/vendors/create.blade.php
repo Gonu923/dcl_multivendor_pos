@@ -17,33 +17,33 @@
     <!-- mutitple select -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- Select2 -->
-    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
     <!-- BS Stepper -->
-    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/bs-stepper/css/bs-stepper.min.css') }}">
     <!-- dropzonejs -->
-    <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/dropzone/min/dropzone.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 @endsection
 
 @section('content')
 
     <div class="card">
         <div class="card-body">
-
+            
             <form action="{{ route('vendors.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -54,7 +54,7 @@
                                 <label for="name">Vendor Name</label>
                                 <input type="text" name="name"
                                     class="form-control @error('name') is-invalid @enderror" id="name"
-                                    placeholder="Vendor Name" value="{{ old('name') }}">
+                                    placeholder="Vendor Name" value="{{ request('name') }}" required>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -66,7 +66,7 @@
                                 <label for="address">Vendor Address</label>
                                 <input type="text" name="address"
                                     class="form-control @error('address') is-invalid @enderror" id="address"
-                                    placeholder="Vendor Address" value="{{ old('address') }}">
+                                    placeholder="Vendor Address" value="{{ request('address') }}" required>
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -78,7 +78,7 @@
                                 <label for="vendor_picture">Vendor Photo</label>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" name="vendor_picture"
-                                        id="vendor_picture">
+                                        id="vendor_picture" required>
                                     <label class="custom-file-label" for="vendor_picture">Choose file</label>
                                 </div>
                                 @error('vendor_picture')
@@ -87,11 +87,10 @@
                                     </span>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label for="nid">Vendor NID Number</label>
                                 <input type="text" name="nid" class="form-control @error('nid') is-invalid @enderror"
-                                    id="nid" placeholder="Vendor NID" value="{{ old('nid') }}">
+                                    id="nid" placeholder="Vendor NID" value="{{ request('nid') }}" required>
                                 @error('nid')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -129,7 +128,7 @@
                             <div class="form-group">
                                 <label for="status">Vendor Type</label>
                                 <select name="type" class="form-control @error('status') is-invalid @enderror"
-                                    id="status">
+                                    id="status" required>
                                     <option>Retailer</option>
                                     <option>Wholeseller</option>
                                 </select>
@@ -144,21 +143,20 @@
                                 <label for="dcl_discount">DCL Discount %</label>
                                 <input type="text" name="dcl_discount"
                                     class="form-control @error('dcl_discount') is-invalid @enderror" id="dcl_discount"
-                                    placeholder="DCL Discount" value="{{ old('dcl_discount') }}">
+                                    placeholder="DCL Discount" value="{{ request('dcl_discount') }}">
                                 @error('dcl_discount')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-
                         </div>
-                        <div class="col-md-6">
 
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Choose Category</label>
                                 <select class="select2bs4" multiple="multiple" data-placeholder="Select a State"
-                                    style="width: 100%;" name="category_id">
+                                    style="width: 100%;" name="category_id" required>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                                     @endforeach
@@ -179,7 +177,7 @@
                                 <label for="contact_no">Contact No</label>
                                 <input type="text" name="contact_no"
                                     class="form-control @error('contact_no') is-invalid @enderror" id="contact_no"
-                                    placeholder="Contact number" value="{{ old('contact_no') }}">
+                                    placeholder="Contact number" value="{{ request('contact_no') }}" required>
                                 @error('contact_no')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -191,7 +189,7 @@
                                 <label for="bkash">Bkash Account Number</label>
                                 <input type="text" name="bkash"
                                     class="form-control @error('bkash') is-invalid @enderror" id="bkash"
-                                    placeholder="Bkash Account Number" value="{{ old('bkash') }}">
+                                    placeholder="Bkash Account Number" value="{{ request('bkash') }}">
                                 @error('bkash')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -203,7 +201,7 @@
                                 <label for="nagad">Nagad Account Number</label>
                                 <input type="text" name="nagad"
                                     class="form-control @error('nagad') is-invalid @enderror" id="nagad"
-                                    placeholder="Nagad Account Number" value="{{ old('nagad') }}">
+                                    placeholder="Nagad Account Number" value="{{ request('nagad') }}">
                                 @error('nagad')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -215,7 +213,7 @@
                                 <label for="commission">Commission %</label>
                                 <input type="text" name="commission"
                                     class="form-control @error('commission') is-invalid @enderror" id="commission"
-                                    placeholder="Commission Amount" value="{{ old('commission') }}">
+                                    placeholder="Commission Amount" value="{{ request('commission') }}">
                                 @error('commission')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -228,7 +226,7 @@
                                 <input type="text" name="vendor_discount"
                                     class="form-control @error('vendor_discount') is-invalid @enderror"
                                     id="vendor_discount" placeholder="Vendor Discount"
-                                    value="{{ old('vendor_discount') }}">
+                                    value="{{ request('vendor_discount') }}">
                                 @error('vendor_discount')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -238,7 +236,121 @@
 
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Save Vendor</button>
+                    <button class="btn btn-secondary btn-lg btn-block" type="submit">Save Vendor</button>
+                </div>
+            </form>
+            <br>
+            <h3 class="text-center">Category Based Discount</h3>
+            <hr>
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Select Category</label>
+                                <select class="form-control" name="category_id">
+                                    <option value="">Choose</option>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>DCL Discount</label>
+                                <input type="number" name="dcl_discount" min="0" max="100" required class="form-control" placeholder="DCL Discount">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Vendor Discount</label>
+                                <input type="number" name="dcl_discount" min="0" max="100" required class="form-control" placeholder="Vendor Discount">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <input type="submit" name="" value="Save Discount" class="btn btn-secondary btn-lg btn-block">
+                </div>
+            </form>
+            <br>
+            <h3 class="text-center">Sub Category Based Discount</h3>
+            <hr>
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Select Sub Category</label>
+                                <select class="form-control" name="category_id">
+                                    <option value="">Choose</option>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>DCL Discount</label>
+                                <input type="number" name="dcl_discount" min="0" max="100" required class="form-control" placeholder="DCL Discount">
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Discount Discount</label>
+                                <input type="number" name="dcl_discount" min="0" max="100" required class="form-control" placeholder="Vendor Discount">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <input type="submit" name="" value="Save Discount" class="btn btn-secondary btn-lg btn-block">
+                </div>
+            </form>
+            <h3 class="text-center">Category Based Commission</h3>
+            <hr>
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Select Category</label>
+                                <select class="form-control" name="category_id">
+                                    <option value="">Choose</option>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Commission Amount</label>
+                                <input type="number" name="dcl_discount" min="0" max="100" required class="form-control" placeholder="DCL Discount">
+                            </div>
+                        </div>                        
+                    </div>
+                    <input type="submit" name="" value="Save Commission" class="btn btn-secondary btn-lg btn-block">
+                </div>
+            </form>
+            <h3 class="text-center">Sub Category Based Commission</h3>
+            <hr>
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Select Sub Category</label>
+                                <select class="form-control" name="category_id">
+                                    <option value="">Choose</option>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Commission</label>
+                                <input type="number" name="dcl_discount" min="0" max="100" required class="form-control" placeholder="Commission">
+                            </div>
+                        </div>                        
+                    </div>
+                    <input type="submit" name="" value="Save Commission" class="btn btn-secondary btn-lg btn-block">
                 </div>
             </form>
         </div>

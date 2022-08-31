@@ -34,6 +34,9 @@ Route::group(['as' => 'api'], function() {
     //categories api
     Orion::resource('categories', Api\CategoryController::class);
 
+    //sub categories api
+    Orion::resource('sub-categories', Api\SubcategoryController::class);
+
     //individual product api
     Orion::resource('products', Api\ProductController::class);
 
@@ -42,9 +45,6 @@ Route::group(['as' => 'api'], function() {
 
     //Category based discount api
     Orion::resource('category-discounts', Api\CategoryDiscountController::class);
-
-    //Sub Category based discount api
-    Orion::resource('subcategory-discounts', Api\SubcategoryDiscountController::class);
 
     //Sub Category based discount api
     Orion::resource('subcategory-discounts', Api\SubcategoryDiscountController::class);

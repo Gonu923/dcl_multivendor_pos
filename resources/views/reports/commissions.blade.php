@@ -325,7 +325,7 @@
                 </tr>
             </tfoot>
         </table>
-
+{{ $vendors->render() }}
     </div>
     </div>
 @endsection

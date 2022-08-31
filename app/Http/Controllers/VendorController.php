@@ -107,7 +107,7 @@ class VendorController extends Controller
         if (!$vendor) {
             return redirect()->back()->with('error', 'Sorry, there\'re a problem while creating vendor.');
         }
-        return redirect()->route('vendors.index')->with('success', 'Success, your vendor have been created.');
+        return redirect()->route('vendors.create')->with('success', 'Success, your vendor have been created.');
     }
 
     /**
@@ -118,7 +118,12 @@ class VendorController extends Controller
      */
     public function show(Vendor $vendor)
     {
-        //
+        if (request()->wantsJson()) {
+            return response(
+                Vendor::all()
+            );
+        }
+        return view('vendors.show', compact('vendor'));
     }
 
     /**

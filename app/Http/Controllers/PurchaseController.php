@@ -19,7 +19,7 @@ class PurchaseController extends Controller
     {
         $orders = new Order();
 
-        $customers = Customer::orderBy('id', 'DESC')->get();
+        $customers = Customer::orderBy('id', 'DESC')->latest()->paginate(20);
         $customers_count = Customer::all()->count();
         $orders = Order::all();
         $total = $orders->map(function($i) {

@@ -11,12 +11,8 @@ use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    
+    public function index(Request $request)
     {
         if (request()->wantsJson()) {
             return response(
@@ -25,31 +21,42 @@ class CustomerController extends Controller
         }
 
         $orders = Order::all();
+        $customers_count = Customer::all()->count();
+        $inactive_count = Customer::where('status', 0)->count();
         $total = $orders->map(function($i) {
             return $i->total();
         })->sum();
-        $customers = Customer::latest()->paginate(10);
-        $customers_count = Customer::all()->count();
-        $inactive_count = Customer::where('status', 0)->count();
-        return view('customers.index', compact('customers_count', 'inactive_count', 'total'))->with('customers', $customers);
+
+        $customers = new Customer();
+        $name = $request->name;
+        $phone = $request->phone;
+        $address = $request->address;
+        $email = $request->email;
+
+        if ($request->has('name')) {
+            $customers = $customers->where('first_name', $name);
+        }
+        if ($request->has('phone')) {
+            $customers = $customers->where('phone','LIKE','%'.$phone.'%');
+        }
+        if ($request->has('email')) {
+            $customers = $customers->where('email','LIKE','%'.$email.'%');
+        }
+        if ($request->has('address')) {
+            $customers = $customers->where('address','LIKE','%'.$address.'%');
+        }
+
+        $customers = Customer::latest()->paginate(20);
+        return view('customers.index', compact('customers', 'customers_count', 'inactive_count', 'total'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         return view('customers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(CustomerStoreRequest $request)
     {
 
@@ -63,6 +70,7 @@ class CustomerController extends Controller
         //         'address' => 'Dhaka',
         //         'avatar' => 'dash.jpg',
         //         'user_id' => 1,
+        //         'status' => 1,
         //         'created_at' => date('Y-m-d H:i:s'),
         //         'updated_at' => date('Y-m-d H:i:s')
         //     ] ;
@@ -93,34 +101,18 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'Success, your customer have been created.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Customer $customer)
     {
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Customer $customer)
     {
         return view('customers.edit', compact('customer'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Customer $customer)
     {
         $customer->first_name = $request->first_name;

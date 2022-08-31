@@ -20,7 +20,7 @@ class CommissionController extends Controller
     public function index()
     {
         $products = Product::all();
-        $vendors = Vendor::all();
+        $vendors = Vendor::latest()->paginate(20);
         $vendors_count = Vendor::all()->count();
 
         $order_item = OrderItem::all();

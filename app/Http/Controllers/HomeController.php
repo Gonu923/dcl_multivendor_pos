@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Customer;
@@ -32,7 +33,7 @@ class HomeController extends Controller
     {
         $orders = Order::with(['items', 'payments'])->get();
         $customers_count = Customer::count();
-        $vendors_count = Vendor::count();
+        $retailers_count = Vendor::where('type', 'Wholeseller')->count();
         $total_sale = Payment::all()->sum('amount');
         $commissions = Vendor::all()->sum('commission');
         $products_count = Product::count();
@@ -43,6 +44,7 @@ class HomeController extends Controller
         $due_collections = Task::where('received_amount', null)->sum('total_amount');
         $suppliers_count = Vendor::where('type', 'Wholeseller')->count();
         $all_commissions = Task::all()->sum('total_amount');
+        $agents_count = Agent::all()->count();
 
 
         return view('home', [
@@ -60,7 +62,7 @@ class HomeController extends Controller
                 return $i->receivedAmount();
             })->sum(),
             'customers_count' => $customers_count,
-            'vendors_count' => $vendors_count,
+            'retailers_count' => $retailers_count,
             'products_count' => $products_count,
             'employees_count' => $employees_count,
             'dcl_discount' => $dcl_discount,
@@ -71,6 +73,7 @@ class HomeController extends Controller
             'all_commissions' => $all_commissions,
             'total_sale' => $total_sale,
             'suppliers_count' => $suppliers_count,
+            'agents_count' => $agents_count,
         ]);
     }
 }

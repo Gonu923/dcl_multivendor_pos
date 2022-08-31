@@ -3,92 +3,29 @@
 @section('content-header', 'Dashboard')
 @section('content')
     <div class="container-fluid">
-        {{-- <div class="row">
-            <div class="col-lg col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h4>{{ $orders_count }}</h4>
-                        <p>Orders Count</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="{{ route('orders.index') }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-
-            <div class="col-lg col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h4>{{ $orders_count }}</h4>
-                        <p>Orders Count</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="{{ route('orders.index') }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg col-6">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h4>{{ config('settings.currency_symbol') }} {{ number_format($income, 2) }}</h4>
-                        <p>Income</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="{{ route('orders.index') }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h4>{{ config('settings.currency_symbol') }} {{ number_format($income_today, 2) }}</h4>
-
-                        <p>Income Today</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="{{ route('orders.index') }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h4>{{ $customers_count }}</h4>
-
-                        <p>Customers Count</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="{{ route('customers.index') }}" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-        </div> --}}
+        
         <div class="row">
             <div class="col-lg col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h4>{{ $customers_count }}</h4>
+                        <h4>{{ $customers_count + $retailers_count + $suppliers_count + $employees_count + $agents_count }}</h4>
                         <p>Total User</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person"></i>
+                    </div>
+                    <a href="{{ route('home') }}" class="small-box-footer">More info <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h4>{{ $customers_count }}</h4>
+                        <p>Total Customer</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person"></i>
@@ -102,7 +39,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h4>{{ $vendors_count }}</h4>
+                        <h4>{{ $retailers_count }}</h4>
                         <p>Total Retailer</p>
                     </div>
                     <div class="icon">
@@ -132,14 +69,14 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h4>{{ $products_count }}</h4>
+                        <h4>{{ $agents_count }}</h4>
 
-                        <p>Total Product</p>
+                        <p>Total Agent</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="{{ route('products.index') }}" class="small-box-footer">More info <i
+                    <a href="{{ route('agents.index') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -182,8 +119,8 @@
                         <div class="col-sm-3 col-6">
                             <div class="description-block border-right">
                                 <span class="description-percentage text-success"><i class="fas fa-caret-left"></i>
-                                    {{ number_format($commissions / $vendors_count, 0) }}% <span>- 4% =
-                                        {{ number_format($commissions / $vendors_count - 4, 0) }}%</span>
+                                    {{ number_format($commissions / ($retailers_count + $suppliers_count), 0) }}% <span>- 4% =
+                                        {{ number_format($commissions / ($retailers_count + $suppliers_count) - 4, 0) }}%</span>
                                 </span>
                                 <h5 class="description-header">BDT {{ number_format($all_commissions, 2) }}</h5>
                                 <span class="description-text">Total Commission</span>

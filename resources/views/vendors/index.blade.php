@@ -86,7 +86,6 @@
                         <th>Address</th>
                         <th>Category</th>
                         <th>Contact No</th>
-                        <th>Vendor + DCL Discount</th>
                         <th>Commission</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -109,8 +108,6 @@
 
                             </td>
                             <td width="11.11%">{{ $vendor->contact_no }}</td>
-                            <td width="14.22%">{{ $vendor->vendor_discount }}% + {{ $vendor->dcl_discount }}% =
-                                {{ $vendor->vendor_discount + $vendor->dcl_discount }}%</td>
                             <td width="11.11%">{{ $vendor->commission }}%</td>
                             <td width="8%">
                                 @if ($vendor->status == 1)
@@ -119,11 +116,13 @@
                                     <span class="right badge badge-danger">Inactive</span>
                                 @endif
                             </td>
-                            <td width="11.11%">
-                                <a href="{{ route('vendors.edit', $vendor) }}" class="btn btn-primary"><i
+                            <td width="19.11%">
+                                <a href="{{ route('vendors.edit', $vendor) }}" class="btn btn-primary" title="Edit Vendor Information"><i
                                         class="fas fa-edit"></i></a>
+                                <a href="{{ route('vendors.show', $vendor) }}" class="btn btn-primary" title="View Vendor Details"><i
+                                        class="fas fa-eye"></i></a>
                                 <button class="btn btn-danger btn-delete"
-                                    data-url="{{ route('vendors.destroy', $vendor) }}"><i
+                                    data-url="{{ route('vendors.destroy', $vendor) }}" title="Delete Vendor Information"><i
                                         class="fas fa-trash"></i></button>
                             </td>
                         </tr>
